@@ -1,0 +1,1938 @@
+// Copyright (C) 2017  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details.
+
+// VENDOR "Altera"
+// PROGRAM "Quartus Prime"
+// VERSION "Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition"
+
+// DATE "03/19/2018 18:10:05"
+
+// 
+// Device: Altera 10M25SCE144C8G Package EQFP144
+// 
+
+// 
+// This Verilog file should be used for ModelSim-Altera (Verilog) only
+// 
+
+`timescale 1 ps/ 1 ps
+
+module GSU (
+	clkin,
+	snes_addr,
+	snes_data,
+	WR,
+	RD,
+	RESET,
+	IRQ,
+	sram_addr,
+	sram_data,
+	SRAM_OE,
+	SRAM_WE,
+	rom_addr,
+	rom_data,
+	ROM_CE);
+input 	clkin;
+input 	[23:0] snes_addr;
+input 	[7:0] snes_data;
+input 	WR;
+input 	RD;
+input 	RESET;
+inout 	IRQ;
+output 	[16:0] sram_addr;
+inout 	[7:0] sram_data;
+output 	SRAM_OE;
+output 	SRAM_WE;
+output 	[20:0] rom_addr;
+inout 	[7:0] rom_data;
+output 	ROM_CE;
+
+// Design Ports Information
+// clkin	=>  Location: PIN_26,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[0]	=>  Location: PIN_6,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[1]	=>  Location: PIN_7,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[2]	=>  Location: PIN_8,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[3]	=>  Location: PIN_10,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[4]	=>  Location: PIN_11,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[5]	=>  Location: PIN_12,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[6]	=>  Location: PIN_13,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[7]	=>  Location: PIN_14,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[8]	=>  Location: PIN_15,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[9]	=>  Location: PIN_70,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[10]	=>  Location: PIN_74,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[11]	=>  Location: PIN_75,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[12]	=>  Location: PIN_76,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[13]	=>  Location: PIN_21,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[14]	=>  Location: PIN_22,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[15]	=>  Location: PIN_24,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[16]	=>  Location: PIN_25,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[17]	=>  Location: PIN_32,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[18]	=>  Location: PIN_33,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[19]	=>  Location: PIN_38,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[20]	=>  Location: PIN_39,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[21]	=>  Location: PIN_41,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[22]	=>  Location: PIN_43,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_addr[23]	=>  Location: PIN_44,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[0]	=>  Location: PIN_45,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[1]	=>  Location: PIN_46,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[2]	=>  Location: PIN_47,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[3]	=>  Location: PIN_50,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[4]	=>  Location: PIN_52,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[5]	=>  Location: PIN_54,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[6]	=>  Location: PIN_59,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// snes_data[7]	=>  Location: PIN_60,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// WR	=>  Location: PIN_66,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// RD	=>  Location: PIN_64,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// RESET	=>  Location: PIN_65,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// sram_addr[0]	=>  Location: PIN_48,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[1]	=>  Location: PIN_55,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[2]	=>  Location: PIN_56,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[3]	=>  Location: PIN_57,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[4]	=>  Location: PIN_58,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[5]	=>  Location: PIN_61,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[6]	=>  Location: PIN_62,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[7]	=>  Location: PIN_69,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[8]	=>  Location: PIN_80,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[9]	=>  Location: PIN_88,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[10]	=>  Location: PIN_89,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[11]	=>  Location: PIN_90,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[12]	=>  Location: PIN_91,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[13]	=>  Location: PIN_97,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[14]	=>  Location: PIN_112,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[15]	=>  Location: PIN_123,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_addr[16]	=>  Location: PIN_126,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// SRAM_OE	=>  Location: PIN_132,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// SRAM_WE	=>  Location: PIN_134,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[0]	=>  Location: PIN_78,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[1]	=>  Location: PIN_79,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[2]	=>  Location: PIN_81,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[3]	=>  Location: PIN_84,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[4]	=>  Location: PIN_85,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[5]	=>  Location: PIN_86,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[6]	=>  Location: PIN_87,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[7]	=>  Location: PIN_92,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[8]	=>  Location: PIN_93,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[9]	=>  Location: PIN_96,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[10]	=>  Location: PIN_98,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[11]	=>  Location: PIN_99,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[12]	=>  Location: PIN_100,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[13]	=>  Location: PIN_101,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[14]	=>  Location: PIN_102,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[15]	=>  Location: PIN_105,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[16]	=>  Location: PIN_106,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[17]	=>  Location: PIN_110,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[18]	=>  Location: PIN_111,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[19]	=>  Location: PIN_113,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_addr[20]	=>  Location: PIN_114,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// ROM_CE	=>  Location: PIN_77,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// IRQ	=>  Location: PIN_118,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[0]	=>  Location: PIN_135,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[1]	=>  Location: PIN_17,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[2]	=>  Location: PIN_30,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[3]	=>  Location: PIN_140,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[4]	=>  Location: PIN_141,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[5]	=>  Location: PIN_27,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[6]	=>  Location: PIN_28,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// sram_data[7]	=>  Location: PIN_29,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[0]	=>  Location: PIN_119,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[1]	=>  Location: PIN_120,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[2]	=>  Location: PIN_121,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[3]	=>  Location: PIN_122,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[4]	=>  Location: PIN_124,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[5]	=>  Location: PIN_130,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[6]	=>  Location: PIN_127,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+// rom_data[7]	=>  Location: PIN_131,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
+
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+tri1 devclrn;
+tri1 devpor;
+tri1 devoe;
+wire \clkin~input_o ;
+wire \snes_addr[0]~input_o ;
+wire \snes_addr[1]~input_o ;
+wire \snes_addr[2]~input_o ;
+wire \snes_addr[3]~input_o ;
+wire \snes_addr[4]~input_o ;
+wire \snes_addr[5]~input_o ;
+wire \snes_addr[6]~input_o ;
+wire \snes_addr[7]~input_o ;
+wire \snes_addr[8]~input_o ;
+wire \snes_addr[9]~input_o ;
+wire \snes_addr[10]~input_o ;
+wire \snes_addr[11]~input_o ;
+wire \snes_addr[12]~input_o ;
+wire \snes_addr[13]~input_o ;
+wire \snes_addr[14]~input_o ;
+wire \snes_addr[15]~input_o ;
+wire \snes_addr[16]~input_o ;
+wire \snes_addr[17]~input_o ;
+wire \snes_addr[18]~input_o ;
+wire \snes_addr[19]~input_o ;
+wire \snes_addr[20]~input_o ;
+wire \snes_addr[21]~input_o ;
+wire \snes_addr[22]~input_o ;
+wire \snes_addr[23]~input_o ;
+wire \snes_data[0]~input_o ;
+wire \snes_data[1]~input_o ;
+wire \snes_data[2]~input_o ;
+wire \snes_data[3]~input_o ;
+wire \snes_data[4]~input_o ;
+wire \snes_data[5]~input_o ;
+wire \snes_data[6]~input_o ;
+wire \snes_data[7]~input_o ;
+wire \WR~input_o ;
+wire \RD~input_o ;
+wire \RESET~input_o ;
+wire \IRQ~input_o ;
+wire \sram_data[0]~input_o ;
+wire \sram_data[1]~input_o ;
+wire \sram_data[2]~input_o ;
+wire \sram_data[3]~input_o ;
+wire \sram_data[4]~input_o ;
+wire \sram_data[5]~input_o ;
+wire \sram_data[6]~input_o ;
+wire \sram_data[7]~input_o ;
+wire \rom_data[0]~input_o ;
+wire \rom_data[1]~input_o ;
+wire \rom_data[2]~input_o ;
+wire \rom_data[3]~input_o ;
+wire \rom_data[4]~input_o ;
+wire \rom_data[5]~input_o ;
+wire \rom_data[6]~input_o ;
+wire \rom_data[7]~input_o ;
+wire \~QUARTUS_CREATED_GND~I_combout ;
+wire \~QUARTUS_CREATED_UNVM~~busy ;
+wire \~QUARTUS_CREATED_ADC1~~eoc ;
+wire \~QUARTUS_CREATED_ADC2~~eoc ;
+wire \IRQ~output_o ;
+wire \sram_data[0]~output_o ;
+wire \sram_data[1]~output_o ;
+wire \sram_data[2]~output_o ;
+wire \sram_data[3]~output_o ;
+wire \sram_data[4]~output_o ;
+wire \sram_data[5]~output_o ;
+wire \sram_data[6]~output_o ;
+wire \sram_data[7]~output_o ;
+wire \rom_data[0]~output_o ;
+wire \rom_data[1]~output_o ;
+wire \rom_data[2]~output_o ;
+wire \rom_data[3]~output_o ;
+wire \rom_data[4]~output_o ;
+wire \rom_data[5]~output_o ;
+wire \rom_data[6]~output_o ;
+wire \rom_data[7]~output_o ;
+wire \sram_addr[0]~output_o ;
+wire \sram_addr[1]~output_o ;
+wire \sram_addr[2]~output_o ;
+wire \sram_addr[3]~output_o ;
+wire \sram_addr[4]~output_o ;
+wire \sram_addr[5]~output_o ;
+wire \sram_addr[6]~output_o ;
+wire \sram_addr[7]~output_o ;
+wire \sram_addr[8]~output_o ;
+wire \sram_addr[9]~output_o ;
+wire \sram_addr[10]~output_o ;
+wire \sram_addr[11]~output_o ;
+wire \sram_addr[12]~output_o ;
+wire \sram_addr[13]~output_o ;
+wire \sram_addr[14]~output_o ;
+wire \sram_addr[15]~output_o ;
+wire \sram_addr[16]~output_o ;
+wire \SRAM_OE~output_o ;
+wire \SRAM_WE~output_o ;
+wire \rom_addr[0]~output_o ;
+wire \rom_addr[1]~output_o ;
+wire \rom_addr[2]~output_o ;
+wire \rom_addr[3]~output_o ;
+wire \rom_addr[4]~output_o ;
+wire \rom_addr[5]~output_o ;
+wire \rom_addr[6]~output_o ;
+wire \rom_addr[7]~output_o ;
+wire \rom_addr[8]~output_o ;
+wire \rom_addr[9]~output_o ;
+wire \rom_addr[10]~output_o ;
+wire \rom_addr[11]~output_o ;
+wire \rom_addr[12]~output_o ;
+wire \rom_addr[13]~output_o ;
+wire \rom_addr[14]~output_o ;
+wire \rom_addr[15]~output_o ;
+wire \rom_addr[16]~output_o ;
+wire \rom_addr[17]~output_o ;
+wire \rom_addr[18]~output_o ;
+wire \rom_addr[19]~output_o ;
+wire \rom_addr[20]~output_o ;
+wire \ROM_CE~output_o ;
+
+
+hard_block auto_generated_inst(
+	.devpor(devpor),
+	.devclrn(devclrn),
+	.devoe(devoe));
+
+// Location: LCCOMB_X1_Y1_N16
+fiftyfivenm_lcell_comb \~QUARTUS_CREATED_GND~I (
+// Equation(s):
+// \~QUARTUS_CREATED_GND~I_combout  = GND
+
+	.dataa(gnd),
+	.datab(gnd),
+	.datac(gnd),
+	.datad(gnd),
+	.cin(gnd),
+	.combout(\~QUARTUS_CREATED_GND~I_combout ),
+	.cout());
+// synopsys translate_off
+defparam \~QUARTUS_CREATED_GND~I .lut_mask = 16'h0000;
+defparam \~QUARTUS_CREATED_GND~I .sum_lutc_input = "datac";
+// synopsys translate_on
+
+// Location: IOOBUF_X28_Y36_N2
+fiftyfivenm_io_obuf \IRQ~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\IRQ~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \IRQ~output .bus_hold = "false";
+defparam \IRQ~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X10_Y21_N16
+fiftyfivenm_io_obuf \sram_data[0]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[0]~output .bus_hold = "false";
+defparam \sram_data[0]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X0_Y18_N2
+fiftyfivenm_io_obuf \sram_data[1]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[1]~output .bus_hold = "false";
+defparam \sram_data[1]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X0_Y10_N2
+fiftyfivenm_io_obuf \sram_data[2]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[2]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[2]~output .bus_hold = "false";
+defparam \sram_data[2]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X8_Y21_N16
+fiftyfivenm_io_obuf \sram_data[3]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[3]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[3]~output .bus_hold = "false";
+defparam \sram_data[3]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X8_Y21_N23
+fiftyfivenm_io_obuf \sram_data[4]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[4]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[4]~output .bus_hold = "false";
+defparam \sram_data[4]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X0_Y13_N23
+fiftyfivenm_io_obuf \sram_data[5]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[5]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[5]~output .bus_hold = "false";
+defparam \sram_data[5]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X0_Y11_N16
+fiftyfivenm_io_obuf \sram_data[6]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[6]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[6]~output .bus_hold = "false";
+defparam \sram_data[6]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X0_Y11_N23
+fiftyfivenm_io_obuf \sram_data[7]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_data[7]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_data[7]~output .bus_hold = "false";
+defparam \sram_data[7]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X28_Y36_N9
+fiftyfivenm_io_obuf \rom_data[0]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[0]~output .bus_hold = "false";
+defparam \rom_data[0]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X19_Y21_N23
+fiftyfivenm_io_obuf \rom_data[1]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[1]~output .bus_hold = "false";
+defparam \rom_data[1]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X19_Y21_N30
+fiftyfivenm_io_obuf \rom_data[2]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[2]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[2]~output .bus_hold = "false";
+defparam \rom_data[2]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X16_Y21_N16
+fiftyfivenm_io_obuf \rom_data[3]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[3]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[3]~output .bus_hold = "false";
+defparam \rom_data[3]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y21_N23
+fiftyfivenm_io_obuf \rom_data[4]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[4]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[4]~output .bus_hold = "false";
+defparam \rom_data[4]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X12_Y21_N2
+fiftyfivenm_io_obuf \rom_data[5]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[5]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[5]~output .bus_hold = "false";
+defparam \rom_data[5]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y21_N30
+fiftyfivenm_io_obuf \rom_data[6]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[6]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[6]~output .bus_hold = "false";
+defparam \rom_data[6]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X12_Y21_N9
+fiftyfivenm_io_obuf \rom_data[7]~output (
+	.i(vcc),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_data[7]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_data[7]~output .bus_hold = "false";
+defparam \rom_data[7]~output .open_drain_output = "true";
+// synopsys translate_on
+
+// Location: IOOBUF_X16_Y0_N30
+fiftyfivenm_io_obuf \sram_addr[0]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[0]~output .bus_hold = "false";
+defparam \sram_addr[0]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X21_Y0_N30
+fiftyfivenm_io_obuf \sram_addr[1]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[1]~output .bus_hold = "false";
+defparam \sram_addr[1]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X21_Y0_N23
+fiftyfivenm_io_obuf \sram_addr[2]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[2]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[2]~output .bus_hold = "false";
+defparam \sram_addr[2]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X21_Y0_N2
+fiftyfivenm_io_obuf \sram_addr[3]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[3]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[3]~output .bus_hold = "false";
+defparam \sram_addr[3]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X24_Y0_N30
+fiftyfivenm_io_obuf \sram_addr[4]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[4]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[4]~output .bus_hold = "false";
+defparam \sram_addr[4]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X36_Y0_N30
+fiftyfivenm_io_obuf \sram_addr[5]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[5]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[5]~output .bus_hold = "false";
+defparam \sram_addr[5]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X36_Y0_N9
+fiftyfivenm_io_obuf \sram_addr[6]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[6]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[6]~output .bus_hold = "false";
+defparam \sram_addr[6]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X53_Y0_N9
+fiftyfivenm_io_obuf \sram_addr[7]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[7]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[7]~output .bus_hold = "false";
+defparam \sram_addr[7]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y8_N2
+fiftyfivenm_io_obuf \sram_addr[8]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[8]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[8]~output .bus_hold = "false";
+defparam \sram_addr[8]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y13_N23
+fiftyfivenm_io_obuf \sram_addr[9]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[9]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[9]~output .bus_hold = "false";
+defparam \sram_addr[9]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y13_N16
+fiftyfivenm_io_obuf \sram_addr[10]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[10]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[10]~output .bus_hold = "false";
+defparam \sram_addr[10]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y14_N23
+fiftyfivenm_io_obuf \sram_addr[11]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[11]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[11]~output .bus_hold = "false";
+defparam \sram_addr[11]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y14_N16
+fiftyfivenm_io_obuf \sram_addr[12]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[12]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[12]~output .bus_hold = "false";
+defparam \sram_addr[12]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y22_N9
+fiftyfivenm_io_obuf \sram_addr[13]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[13]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[13]~output .bus_hold = "false";
+defparam \sram_addr[13]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X40_Y36_N16
+fiftyfivenm_io_obuf \sram_addr[14]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[14]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[14]~output .bus_hold = "false";
+defparam \sram_addr[14]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y21_N2
+fiftyfivenm_io_obuf \sram_addr[15]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[15]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[15]~output .bus_hold = "false";
+defparam \sram_addr[15]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X14_Y21_N9
+fiftyfivenm_io_obuf \sram_addr[16]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\sram_addr[16]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \sram_addr[16]~output .bus_hold = "false";
+defparam \sram_addr[16]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X12_Y21_N30
+fiftyfivenm_io_obuf \SRAM_OE~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\SRAM_OE~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \SRAM_OE~output .bus_hold = "false";
+defparam \SRAM_OE~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X10_Y21_N2
+fiftyfivenm_io_obuf \SRAM_WE~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\SRAM_WE~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \SRAM_WE~output .bus_hold = "false";
+defparam \SRAM_WE~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y8_N9
+fiftyfivenm_io_obuf \rom_addr[0]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[0]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[0]~output .bus_hold = "false";
+defparam \rom_addr[0]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y8_N23
+fiftyfivenm_io_obuf \rom_addr[1]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[1]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[1]~output .bus_hold = "false";
+defparam \rom_addr[1]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y8_N16
+fiftyfivenm_io_obuf \rom_addr[2]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[2]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[2]~output .bus_hold = "false";
+defparam \rom_addr[2]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y10_N9
+fiftyfivenm_io_obuf \rom_addr[3]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[3]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[3]~output .bus_hold = "false";
+defparam \rom_addr[3]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y10_N24
+fiftyfivenm_io_obuf \rom_addr[4]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[4]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[4]~output .bus_hold = "false";
+defparam \rom_addr[4]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y10_N2
+fiftyfivenm_io_obuf \rom_addr[5]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[5]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[5]~output .bus_hold = "false";
+defparam \rom_addr[5]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y10_N16
+fiftyfivenm_io_obuf \rom_addr[6]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[6]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[6]~output .bus_hold = "false";
+defparam \rom_addr[6]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y15_N23
+fiftyfivenm_io_obuf \rom_addr[7]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[7]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[7]~output .bus_hold = "false";
+defparam \rom_addr[7]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y15_N16
+fiftyfivenm_io_obuf \rom_addr[8]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[8]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[8]~output .bus_hold = "false";
+defparam \rom_addr[8]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y22_N24
+fiftyfivenm_io_obuf \rom_addr[9]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[9]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[9]~output .bus_hold = "false";
+defparam \rom_addr[9]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y22_N16
+fiftyfivenm_io_obuf \rom_addr[10]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[10]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[10]~output .bus_hold = "false";
+defparam \rom_addr[10]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y23_N23
+fiftyfivenm_io_obuf \rom_addr[11]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[11]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[11]~output .bus_hold = "false";
+defparam \rom_addr[11]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y23_N9
+fiftyfivenm_io_obuf \rom_addr[12]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[12]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[12]~output .bus_hold = "false";
+defparam \rom_addr[12]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y23_N16
+fiftyfivenm_io_obuf \rom_addr[13]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[13]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[13]~output .bus_hold = "false";
+defparam \rom_addr[13]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y23_N2
+fiftyfivenm_io_obuf \rom_addr[14]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[14]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[14]~output .bus_hold = "false";
+defparam \rom_addr[14]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y31_N23
+fiftyfivenm_io_obuf \rom_addr[15]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[15]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[15]~output .bus_hold = "false";
+defparam \rom_addr[15]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y31_N16
+fiftyfivenm_io_obuf \rom_addr[16]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[16]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[16]~output .bus_hold = "false";
+defparam \rom_addr[16]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X58_Y36_N2
+fiftyfivenm_io_obuf \rom_addr[17]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[17]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[17]~output .bus_hold = "false";
+defparam \rom_addr[17]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X58_Y36_N9
+fiftyfivenm_io_obuf \rom_addr[18]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[18]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[18]~output .bus_hold = "false";
+defparam \rom_addr[18]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X40_Y36_N30
+fiftyfivenm_io_obuf \rom_addr[19]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[19]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[19]~output .bus_hold = "false";
+defparam \rom_addr[19]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X38_Y36_N16
+fiftyfivenm_io_obuf \rom_addr[20]~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\rom_addr[20]~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \rom_addr[20]~output .bus_hold = "false";
+defparam \rom_addr[20]~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOOBUF_X60_Y2_N16
+fiftyfivenm_io_obuf \ROM_CE~output (
+	.i(gnd),
+	.oe(vcc),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(\ROM_CE~output_o ),
+	.obar());
+// synopsys translate_off
+defparam \ROM_CE~output .bus_hold = "false";
+defparam \ROM_CE~output .open_drain_output = "false";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y13_N15
+fiftyfivenm_io_ibuf \clkin~input (
+	.i(clkin),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\clkin~input_o ));
+// synopsys translate_off
+defparam \clkin~input .bus_hold = "false";
+defparam \clkin~input .listen_to_nsleep_signal = "false";
+defparam \clkin~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y29_N15
+fiftyfivenm_io_ibuf \snes_addr[0]~input (
+	.i(snes_addr[0]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[0]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[0]~input .bus_hold = "false";
+defparam \snes_addr[0]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[0]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y29_N22
+fiftyfivenm_io_ibuf \snes_addr[1]~input (
+	.i(snes_addr[1]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[1]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[1]~input .bus_hold = "false";
+defparam \snes_addr[1]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[1]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y28_N15
+fiftyfivenm_io_ibuf \snes_addr[2]~input (
+	.i(snes_addr[2]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[2]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[2]~input .bus_hold = "false";
+defparam \snes_addr[2]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[2]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y28_N22
+fiftyfivenm_io_ibuf \snes_addr[3]~input (
+	.i(snes_addr[3]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[3]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[3]~input .bus_hold = "false";
+defparam \snes_addr[3]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[3]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y27_N15
+fiftyfivenm_io_ibuf \snes_addr[4]~input (
+	.i(snes_addr[4]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[4]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[4]~input .bus_hold = "false";
+defparam \snes_addr[4]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[4]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y27_N22
+fiftyfivenm_io_ibuf \snes_addr[5]~input (
+	.i(snes_addr[5]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[5]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[5]~input .bus_hold = "false";
+defparam \snes_addr[5]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[5]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y26_N15
+fiftyfivenm_io_ibuf \snes_addr[6]~input (
+	.i(snes_addr[6]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[6]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[6]~input .bus_hold = "false";
+defparam \snes_addr[6]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[6]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X25_Y26_N22
+fiftyfivenm_io_ibuf \snes_addr[7]~input (
+	.i(snes_addr[7]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[7]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[7]~input .bus_hold = "false";
+defparam \snes_addr[7]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[7]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y19_N22
+fiftyfivenm_io_ibuf \snes_addr[8]~input (
+	.i(snes_addr[8]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[8]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[8]~input .bus_hold = "false";
+defparam \snes_addr[8]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[8]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X53_Y0_N1
+fiftyfivenm_io_ibuf \snes_addr[9]~input (
+	.i(snes_addr[9]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[9]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[9]~input .bus_hold = "false";
+defparam \snes_addr[9]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[9]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X60_Y2_N8
+fiftyfivenm_io_ibuf \snes_addr[10]~input (
+	.i(snes_addr[10]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[10]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[10]~input .bus_hold = "false";
+defparam \snes_addr[10]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[10]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X60_Y2_N22
+fiftyfivenm_io_ibuf \snes_addr[11]~input (
+	.i(snes_addr[11]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[11]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[11]~input .bus_hold = "false";
+defparam \snes_addr[11]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[11]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X60_Y2_N1
+fiftyfivenm_io_ibuf \snes_addr[12]~input (
+	.i(snes_addr[12]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[12]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[12]~input .bus_hold = "false";
+defparam \snes_addr[12]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[12]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y16_N15
+fiftyfivenm_io_ibuf \snes_addr[13]~input (
+	.i(snes_addr[13]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[13]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[13]~input .bus_hold = "false";
+defparam \snes_addr[13]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[13]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y16_N22
+fiftyfivenm_io_ibuf \snes_addr[14]~input (
+	.i(snes_addr[14]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[14]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[14]~input .bus_hold = "false";
+defparam \snes_addr[14]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[14]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y15_N15
+fiftyfivenm_io_ibuf \snes_addr[15]~input (
+	.i(snes_addr[15]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[15]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[15]~input .bus_hold = "false";
+defparam \snes_addr[15]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[15]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y15_N22
+fiftyfivenm_io_ibuf \snes_addr[16]~input (
+	.i(snes_addr[16]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[16]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[16]~input .bus_hold = "false";
+defparam \snes_addr[16]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[16]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y3_N15
+fiftyfivenm_io_ibuf \snes_addr[17]~input (
+	.i(snes_addr[17]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[17]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[17]~input .bus_hold = "false";
+defparam \snes_addr[17]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[17]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y3_N22
+fiftyfivenm_io_ibuf \snes_addr[18]~input (
+	.i(snes_addr[18]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[18]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[18]~input .bus_hold = "false";
+defparam \snes_addr[18]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[18]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X3_Y0_N1
+fiftyfivenm_io_ibuf \snes_addr[19]~input (
+	.i(snes_addr[19]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[19]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[19]~input .bus_hold = "false";
+defparam \snes_addr[19]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[19]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X6_Y0_N29
+fiftyfivenm_io_ibuf \snes_addr[20]~input (
+	.i(snes_addr[20]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[20]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[20]~input .bus_hold = "false";
+defparam \snes_addr[20]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[20]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X6_Y0_N8
+fiftyfivenm_io_ibuf \snes_addr[21]~input (
+	.i(snes_addr[21]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[21]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[21]~input .bus_hold = "false";
+defparam \snes_addr[21]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[21]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X6_Y0_N1
+fiftyfivenm_io_ibuf \snes_addr[22]~input (
+	.i(snes_addr[22]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[22]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[22]~input .bus_hold = "false";
+defparam \snes_addr[22]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[22]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X8_Y0_N15
+fiftyfivenm_io_ibuf \snes_addr[23]~input (
+	.i(snes_addr[23]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_addr[23]~input_o ));
+// synopsys translate_off
+defparam \snes_addr[23]~input .bus_hold = "false";
+defparam \snes_addr[23]~input .listen_to_nsleep_signal = "false";
+defparam \snes_addr[23]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X8_Y0_N8
+fiftyfivenm_io_ibuf \snes_data[0]~input (
+	.i(snes_data[0]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[0]~input_o ));
+// synopsys translate_off
+defparam \snes_data[0]~input .bus_hold = "false";
+defparam \snes_data[0]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[0]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X14_Y0_N8
+fiftyfivenm_io_ibuf \snes_data[1]~input (
+	.i(snes_data[1]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[1]~input_o ));
+// synopsys translate_off
+defparam \snes_data[1]~input .bus_hold = "false";
+defparam \snes_data[1]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[1]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X14_Y0_N1
+fiftyfivenm_io_ibuf \snes_data[2]~input (
+	.i(snes_data[2]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[2]~input_o ));
+// synopsys translate_off
+defparam \snes_data[2]~input .bus_hold = "false";
+defparam \snes_data[2]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[2]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X16_Y0_N15
+fiftyfivenm_io_ibuf \snes_data[3]~input (
+	.i(snes_data[3]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[3]~input_o ));
+// synopsys translate_off
+defparam \snes_data[3]~input .bus_hold = "false";
+defparam \snes_data[3]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[3]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X16_Y0_N8
+fiftyfivenm_io_ibuf \snes_data[4]~input (
+	.i(snes_data[4]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[4]~input_o ));
+// synopsys translate_off
+defparam \snes_data[4]~input .bus_hold = "false";
+defparam \snes_data[4]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[4]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X19_Y0_N22
+fiftyfivenm_io_ibuf \snes_data[5]~input (
+	.i(snes_data[5]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[5]~input_o ));
+// synopsys translate_off
+defparam \snes_data[5]~input .bus_hold = "false";
+defparam \snes_data[5]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[5]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X24_Y0_N8
+fiftyfivenm_io_ibuf \snes_data[6]~input (
+	.i(snes_data[6]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[6]~input_o ));
+// synopsys translate_off
+defparam \snes_data[6]~input .bus_hold = "false";
+defparam \snes_data[6]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[6]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X24_Y0_N1
+fiftyfivenm_io_ibuf \snes_data[7]~input (
+	.i(snes_data[7]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\snes_data[7]~input_o ));
+// synopsys translate_off
+defparam \snes_data[7]~input .bus_hold = "false";
+defparam \snes_data[7]~input .listen_to_nsleep_signal = "false";
+defparam \snes_data[7]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X40_Y0_N1
+fiftyfivenm_io_ibuf \WR~input (
+	.i(WR),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\WR~input_o ));
+// synopsys translate_off
+defparam \WR~input .bus_hold = "false";
+defparam \WR~input .listen_to_nsleep_signal = "false";
+defparam \WR~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X40_Y0_N29
+fiftyfivenm_io_ibuf \RD~input (
+	.i(RD),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\RD~input_o ));
+// synopsys translate_off
+defparam \RD~input .bus_hold = "false";
+defparam \RD~input .listen_to_nsleep_signal = "false";
+defparam \RD~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X40_Y0_N22
+fiftyfivenm_io_ibuf \RESET~input (
+	.i(RESET),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\RESET~input_o ));
+// synopsys translate_off
+defparam \RESET~input .bus_hold = "false";
+defparam \RESET~input .listen_to_nsleep_signal = "false";
+defparam \RESET~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X28_Y36_N1
+fiftyfivenm_io_ibuf \IRQ~input (
+	.i(IRQ),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\IRQ~input_o ));
+// synopsys translate_off
+defparam \IRQ~input .bus_hold = "false";
+defparam \IRQ~input .listen_to_nsleep_signal = "false";
+defparam \IRQ~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X10_Y21_N15
+fiftyfivenm_io_ibuf \sram_data[0]~input (
+	.i(sram_data[0]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[0]~input_o ));
+// synopsys translate_off
+defparam \sram_data[0]~input .bus_hold = "false";
+defparam \sram_data[0]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[0]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y18_N1
+fiftyfivenm_io_ibuf \sram_data[1]~input (
+	.i(sram_data[1]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[1]~input_o ));
+// synopsys translate_off
+defparam \sram_data[1]~input .bus_hold = "false";
+defparam \sram_data[1]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[1]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y10_N1
+fiftyfivenm_io_ibuf \sram_data[2]~input (
+	.i(sram_data[2]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[2]~input_o ));
+// synopsys translate_off
+defparam \sram_data[2]~input .bus_hold = "false";
+defparam \sram_data[2]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[2]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X8_Y21_N15
+fiftyfivenm_io_ibuf \sram_data[3]~input (
+	.i(sram_data[3]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[3]~input_o ));
+// synopsys translate_off
+defparam \sram_data[3]~input .bus_hold = "false";
+defparam \sram_data[3]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[3]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X8_Y21_N22
+fiftyfivenm_io_ibuf \sram_data[4]~input (
+	.i(sram_data[4]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[4]~input_o ));
+// synopsys translate_off
+defparam \sram_data[4]~input .bus_hold = "false";
+defparam \sram_data[4]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[4]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y13_N22
+fiftyfivenm_io_ibuf \sram_data[5]~input (
+	.i(sram_data[5]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[5]~input_o ));
+// synopsys translate_off
+defparam \sram_data[5]~input .bus_hold = "false";
+defparam \sram_data[5]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[5]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y11_N15
+fiftyfivenm_io_ibuf \sram_data[6]~input (
+	.i(sram_data[6]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[6]~input_o ));
+// synopsys translate_off
+defparam \sram_data[6]~input .bus_hold = "false";
+defparam \sram_data[6]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[6]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X0_Y11_N22
+fiftyfivenm_io_ibuf \sram_data[7]~input (
+	.i(sram_data[7]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\sram_data[7]~input_o ));
+// synopsys translate_off
+defparam \sram_data[7]~input .bus_hold = "false";
+defparam \sram_data[7]~input .listen_to_nsleep_signal = "false";
+defparam \sram_data[7]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X28_Y36_N8
+fiftyfivenm_io_ibuf \rom_data[0]~input (
+	.i(rom_data[0]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[0]~input_o ));
+// synopsys translate_off
+defparam \rom_data[0]~input .bus_hold = "false";
+defparam \rom_data[0]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[0]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X19_Y21_N22
+fiftyfivenm_io_ibuf \rom_data[1]~input (
+	.i(rom_data[1]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[1]~input_o ));
+// synopsys translate_off
+defparam \rom_data[1]~input .bus_hold = "false";
+defparam \rom_data[1]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[1]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X19_Y21_N29
+fiftyfivenm_io_ibuf \rom_data[2]~input (
+	.i(rom_data[2]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[2]~input_o ));
+// synopsys translate_off
+defparam \rom_data[2]~input .bus_hold = "false";
+defparam \rom_data[2]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[2]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X16_Y21_N15
+fiftyfivenm_io_ibuf \rom_data[3]~input (
+	.i(rom_data[3]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[3]~input_o ));
+// synopsys translate_off
+defparam \rom_data[3]~input .bus_hold = "false";
+defparam \rom_data[3]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[3]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X14_Y21_N22
+fiftyfivenm_io_ibuf \rom_data[4]~input (
+	.i(rom_data[4]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[4]~input_o ));
+// synopsys translate_off
+defparam \rom_data[4]~input .bus_hold = "false";
+defparam \rom_data[4]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[4]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X12_Y21_N1
+fiftyfivenm_io_ibuf \rom_data[5]~input (
+	.i(rom_data[5]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[5]~input_o ));
+// synopsys translate_off
+defparam \rom_data[5]~input .bus_hold = "false";
+defparam \rom_data[5]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[5]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X14_Y21_N29
+fiftyfivenm_io_ibuf \rom_data[6]~input (
+	.i(rom_data[6]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[6]~input_o ));
+// synopsys translate_off
+defparam \rom_data[6]~input .bus_hold = "false";
+defparam \rom_data[6]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[6]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X12_Y21_N8
+fiftyfivenm_io_ibuf \rom_data[7]~input (
+	.i(rom_data[7]),
+	.ibar(gnd),
+	.nsleep(vcc),
+	.o(\rom_data[7]~input_o ));
+// synopsys translate_off
+defparam \rom_data[7]~input .bus_hold = "false";
+defparam \rom_data[7]~input .listen_to_nsleep_signal = "false";
+defparam \rom_data[7]~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: UNVM_X0_Y22_N40
+fiftyfivenm_unvm \~QUARTUS_CREATED_UNVM~ (
+	.arclk(vcc),
+	.arshft(vcc),
+	.drclk(vcc),
+	.drshft(vcc),
+	.drdin(vcc),
+	.nprogram(vcc),
+	.nerase(vcc),
+	.nosc_ena(\~QUARTUS_CREATED_GND~I_combout ),
+	.par_en(vcc),
+	.xe_ye(\~QUARTUS_CREATED_GND~I_combout ),
+	.se(\~QUARTUS_CREATED_GND~I_combout ),
+	.ardin(23'b11111111111111111111111),
+	.busy(\~QUARTUS_CREATED_UNVM~~busy ),
+	.osc(),
+	.bgpbusy(),
+	.sp_pass(),
+	.se_pass(),
+	.drdout());
+// synopsys translate_off
+defparam \~QUARTUS_CREATED_UNVM~ .addr_range1_end_addr = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .addr_range1_offset = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .addr_range2_offset = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .is_compressed_image = "false";
+defparam \~QUARTUS_CREATED_UNVM~ .is_dual_boot = "false";
+defparam \~QUARTUS_CREATED_UNVM~ .is_eram_skip = "false";
+defparam \~QUARTUS_CREATED_UNVM~ .max_ufm_valid_addr = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .max_valid_addr = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .min_ufm_valid_addr = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .min_valid_addr = -1;
+defparam \~QUARTUS_CREATED_UNVM~ .part_name = "quartus_created_unvm";
+defparam \~QUARTUS_CREATED_UNVM~ .reserve_block = "true";
+// synopsys translate_on
+
+// Location: ADCBLOCK_X25_Y34_N0
+fiftyfivenm_adcblock \~QUARTUS_CREATED_ADC1~ (
+	.soc(\~QUARTUS_CREATED_GND~I_combout ),
+	.usr_pwd(vcc),
+	.tsen(\~QUARTUS_CREATED_GND~I_combout ),
+	.clkin_from_pll_c0(gnd),
+	.chsel({\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout }),
+	.eoc(\~QUARTUS_CREATED_ADC1~~eoc ),
+	.dout());
+// synopsys translate_off
+defparam \~QUARTUS_CREATED_ADC1~ .analog_input_pin_mask = 0;
+defparam \~QUARTUS_CREATED_ADC1~ .clkdiv = 1;
+defparam \~QUARTUS_CREATED_ADC1~ .device_partname_fivechar_prefix = "none";
+defparam \~QUARTUS_CREATED_ADC1~ .is_this_first_or_second_adc = 1;
+defparam \~QUARTUS_CREATED_ADC1~ .prescalar = 0;
+defparam \~QUARTUS_CREATED_ADC1~ .pwd = 1;
+defparam \~QUARTUS_CREATED_ADC1~ .refsel = 0;
+defparam \~QUARTUS_CREATED_ADC1~ .reserve_block = "true";
+defparam \~QUARTUS_CREATED_ADC1~ .testbits = 66;
+defparam \~QUARTUS_CREATED_ADC1~ .tsclkdiv = 1;
+defparam \~QUARTUS_CREATED_ADC1~ .tsclksel = 0;
+// synopsys translate_on
+
+// Location: ADCBLOCK_X25_Y33_N0
+fiftyfivenm_adcblock \~QUARTUS_CREATED_ADC2~ (
+	.soc(\~QUARTUS_CREATED_GND~I_combout ),
+	.usr_pwd(vcc),
+	.tsen(\~QUARTUS_CREATED_GND~I_combout ),
+	.clkin_from_pll_c0(gnd),
+	.chsel({\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout ,\~QUARTUS_CREATED_GND~I_combout }),
+	.eoc(\~QUARTUS_CREATED_ADC2~~eoc ),
+	.dout());
+// synopsys translate_off
+defparam \~QUARTUS_CREATED_ADC2~ .analog_input_pin_mask = 0;
+defparam \~QUARTUS_CREATED_ADC2~ .clkdiv = 1;
+defparam \~QUARTUS_CREATED_ADC2~ .device_partname_fivechar_prefix = "none";
+defparam \~QUARTUS_CREATED_ADC2~ .is_this_first_or_second_adc = 2;
+defparam \~QUARTUS_CREATED_ADC2~ .prescalar = 0;
+defparam \~QUARTUS_CREATED_ADC2~ .pwd = 1;
+defparam \~QUARTUS_CREATED_ADC2~ .refsel = 0;
+defparam \~QUARTUS_CREATED_ADC2~ .reserve_block = "true";
+defparam \~QUARTUS_CREATED_ADC2~ .testbits = 66;
+defparam \~QUARTUS_CREATED_ADC2~ .tsclkdiv = 1;
+defparam \~QUARTUS_CREATED_ADC2~ .tsclksel = 0;
+// synopsys translate_on
+
+assign sram_addr[0] = \sram_addr[0]~output_o ;
+
+assign sram_addr[1] = \sram_addr[1]~output_o ;
+
+assign sram_addr[2] = \sram_addr[2]~output_o ;
+
+assign sram_addr[3] = \sram_addr[3]~output_o ;
+
+assign sram_addr[4] = \sram_addr[4]~output_o ;
+
+assign sram_addr[5] = \sram_addr[5]~output_o ;
+
+assign sram_addr[6] = \sram_addr[6]~output_o ;
+
+assign sram_addr[7] = \sram_addr[7]~output_o ;
+
+assign sram_addr[8] = \sram_addr[8]~output_o ;
+
+assign sram_addr[9] = \sram_addr[9]~output_o ;
+
+assign sram_addr[10] = \sram_addr[10]~output_o ;
+
+assign sram_addr[11] = \sram_addr[11]~output_o ;
+
+assign sram_addr[12] = \sram_addr[12]~output_o ;
+
+assign sram_addr[13] = \sram_addr[13]~output_o ;
+
+assign sram_addr[14] = \sram_addr[14]~output_o ;
+
+assign sram_addr[15] = \sram_addr[15]~output_o ;
+
+assign sram_addr[16] = \sram_addr[16]~output_o ;
+
+assign SRAM_OE = \SRAM_OE~output_o ;
+
+assign SRAM_WE = \SRAM_WE~output_o ;
+
+assign rom_addr[0] = \rom_addr[0]~output_o ;
+
+assign rom_addr[1] = \rom_addr[1]~output_o ;
+
+assign rom_addr[2] = \rom_addr[2]~output_o ;
+
+assign rom_addr[3] = \rom_addr[3]~output_o ;
+
+assign rom_addr[4] = \rom_addr[4]~output_o ;
+
+assign rom_addr[5] = \rom_addr[5]~output_o ;
+
+assign rom_addr[6] = \rom_addr[6]~output_o ;
+
+assign rom_addr[7] = \rom_addr[7]~output_o ;
+
+assign rom_addr[8] = \rom_addr[8]~output_o ;
+
+assign rom_addr[9] = \rom_addr[9]~output_o ;
+
+assign rom_addr[10] = \rom_addr[10]~output_o ;
+
+assign rom_addr[11] = \rom_addr[11]~output_o ;
+
+assign rom_addr[12] = \rom_addr[12]~output_o ;
+
+assign rom_addr[13] = \rom_addr[13]~output_o ;
+
+assign rom_addr[14] = \rom_addr[14]~output_o ;
+
+assign rom_addr[15] = \rom_addr[15]~output_o ;
+
+assign rom_addr[16] = \rom_addr[16]~output_o ;
+
+assign rom_addr[17] = \rom_addr[17]~output_o ;
+
+assign rom_addr[18] = \rom_addr[18]~output_o ;
+
+assign rom_addr[19] = \rom_addr[19]~output_o ;
+
+assign rom_addr[20] = \rom_addr[20]~output_o ;
+
+assign ROM_CE = \ROM_CE~output_o ;
+
+assign IRQ = \IRQ~output_o ;
+
+assign sram_data[0] = \sram_data[0]~output_o ;
+
+assign sram_data[1] = \sram_data[1]~output_o ;
+
+assign sram_data[2] = \sram_data[2]~output_o ;
+
+assign sram_data[3] = \sram_data[3]~output_o ;
+
+assign sram_data[4] = \sram_data[4]~output_o ;
+
+assign sram_data[5] = \sram_data[5]~output_o ;
+
+assign sram_data[6] = \sram_data[6]~output_o ;
+
+assign sram_data[7] = \sram_data[7]~output_o ;
+
+assign rom_data[0] = \rom_data[0]~output_o ;
+
+assign rom_data[1] = \rom_data[1]~output_o ;
+
+assign rom_data[2] = \rom_data[2]~output_o ;
+
+assign rom_data[3] = \rom_data[3]~output_o ;
+
+assign rom_data[4] = \rom_data[4]~output_o ;
+
+assign rom_data[5] = \rom_data[5]~output_o ;
+
+assign rom_data[6] = \rom_data[6]~output_o ;
+
+assign rom_data[7] = \rom_data[7]~output_o ;
+
+endmodule
+
+module hard_block (
+
+	devpor,
+	devclrn,
+	devoe);
+
+// Design Ports Information
+// ~ALTERA_TMS~	=>  Location: PIN_16,	 I/O Standard: 3.3 V Schmitt Trigger,	 Current Strength: Default
+// ~ALTERA_TCK~	=>  Location: PIN_18,	 I/O Standard: 3.3 V Schmitt Trigger,	 Current Strength: Default
+// ~ALTERA_TDI~	=>  Location: PIN_19,	 I/O Standard: 3.3 V Schmitt Trigger,	 Current Strength: Default
+// ~ALTERA_TDO~	=>  Location: PIN_20,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: Default
+// ~ALTERA_nCONFIG~	=>  Location: PIN_129,	 I/O Standard: 3.3 V Schmitt Trigger,	 Current Strength: Default
+// ~ALTERA_nSTATUS~	=>  Location: PIN_136,	 I/O Standard: 3.3 V Schmitt Trigger,	 Current Strength: Default
+// ~ALTERA_CONF_DONE~	=>  Location: PIN_138,	 I/O Standard: 3.3 V Schmitt Trigger,	 Current Strength: Default
+
+input 	devpor;
+input 	devclrn;
+input 	devoe;
+
+wire gnd;
+wire vcc;
+wire unknown;
+
+assign gnd = 1'b0;
+assign vcc = 1'b1;
+assign unknown = 1'bx;
+
+wire \~ALTERA_TMS~~padout ;
+wire \~ALTERA_TCK~~padout ;
+wire \~ALTERA_TDI~~padout ;
+wire \~ALTERA_nCONFIG~~padout ;
+wire \~ALTERA_nSTATUS~~padout ;
+wire \~ALTERA_CONF_DONE~~padout ;
+wire \~ALTERA_TMS~~ibuf_o ;
+wire \~ALTERA_TCK~~ibuf_o ;
+wire \~ALTERA_TDI~~ibuf_o ;
+wire \~ALTERA_nCONFIG~~ibuf_o ;
+wire \~ALTERA_nSTATUS~~ibuf_o ;
+wire \~ALTERA_CONF_DONE~~ibuf_o ;
+
+
+endmodule

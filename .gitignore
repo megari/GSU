@@ -1,0 +1,4 @@
+db/*
+sys/*
+output_files/*
+incremental_db/*
