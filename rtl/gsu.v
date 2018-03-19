@@ -37,7 +37,7 @@ gsu_mapper g_mapper(
 	.rom_addr(gsu_rom_addr),
 	.is_rom(gsu_is_rom),
 	.sram_addr(gsu_sram_addr),
-	.is_sram(gsu_is_sram)
+	.is_ram(gsu_is_ram)
 );
 
 // Mapper for SNES-generated addresses.
