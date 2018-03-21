@@ -6,12 +6,12 @@ module GSU(
 	input RD,
 	input RESET,
 	inout IRQ,
-	output [16:0] sram_addr,
-	inout [7:0] sram_data,
-	output SRAM_OE,
-	output SRAM_WE,
+	output [16:0] ram_addr,
+	inout [7:0] ram_data,
+	output RAM_OE,
+	output RAM_WE,
 	output [20:0] rom_addr,
-	inout [7:0] rom_data,
+	input [7:0] rom_data,
 	output ROM_CE
 );
 
@@ -36,7 +36,7 @@ gsu_mapper g_mapper(
 	.addr(gsu_addr),
 	.rom_addr(gsu_rom_addr),
 	.is_rom(gsu_is_rom),
-	.sram_addr(gsu_sram_addr),
+	.ram_addr(gsu_ram_addr),
 	.is_ram(gsu_is_ram)
 );
 
@@ -45,8 +45,8 @@ snes_mapper s_mapper(
 	.addr(snes_addr),
 	.rom_addr(snes_rom_addr),
 	.is_rom(snes_is_rom),
-	.sram_addr(snes_sram_addr),
-	.is_sram(snes_is_sram),
+	.ram_addr(snes_ram_addr),
+	.is_ram(snes_is_ram),
 	.is_mmio(snes_is_mmio)
 );
 
@@ -105,6 +105,26 @@ reg [3:0] dst_reg;
 /* ROM/RAM bus access flags */
 assign ron = scmr[4];
 assign ran = scmr[3];
+
+assign rom_addr = ron ? gsu_is_rom ? gsu_rom_addr : 21'bZ
+                      : snes_is_rom ? snes_rom_addr : 21'bZ;
+
+// XXX: Should RD be enabled when high or low? Selecting enabled-on-high for now.
+assign ROM_CE = ron ? 1'b1 // Disabled for now for GSU
+                    : (snes_is_rom & RD) ? 1'b0 : 1'b1;
+
+assign ram_addr = ran ? gsu_is_ram ? gsu_ram_addr : 17'bZ
+                      : snes_is_ram ? snes_ram_addr : 17'bZ;
+
+// XXX: Should RD and WR be enabled when high or low? Selecting enabled-on-high for now.
+assign RAM_OE = ran ? 1'b1 // Disabled for now for GSU
+                    : (snes_is_ram & RD) ? 1'b0 : 1'b1;
+
+assign RAM_WE = ran ? 1'b1 // Disabled for now for GSU
+                    : (snes_is_ram & WR) ? 1'b0 : 1'b1;
+
+assign ram_data = ran ? 8'bZ // Floating for now for GSU
+                      : RAM_WE ? snes_data : 8'bZ;
 
 /* Cache RAM and cache flags */
 reg [31:0] cache_flags;
