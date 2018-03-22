@@ -261,5 +261,7 @@ set_location_assignment PIN_123 -to ram_addr[15]
 set_location_assignment PIN_126 -to ram_addr[16]
 set_location_assignment PIN_132 -to RAM_OE
 set_location_assignment PIN_134 -to RAM_WE
+set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
 set_global_assignment -name SDC_FILE rtl/GSU.sdc
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
